@@ -42,10 +42,6 @@ class DeduplicationService:
         image_path: str,
         radius_meters: float = settings.DEDUPLICATION_RADIUS_METERS
     ) -> Tuple[Optional[Report], bool]:
-        """
-        SRS FR-21: Jika laporan duplikat, backend menggabungkannya ke laporan yang ada
-        dan menambah penghitung 'jumlah terlapor'.
-        """
         duplicate = cls.find_duplicate_report(db, latitude, longitude, radius_meters)
         if duplicate:
             duplicate.jumlah_terlapor += 1
