@@ -1,5 +1,6 @@
 fastapi>=0.110.0
 uvicorn[standard]>=0.28.0
+a2wsgi>=1.10.0
 pydantic>=2.7.0
 pydantic-settings>=2.2.0
 email-validator>=2.1.0
