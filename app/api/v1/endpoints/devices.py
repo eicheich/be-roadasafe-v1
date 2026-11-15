@@ -6,7 +6,7 @@ from app.core.database import get_db
 from app.models.device import Device
 from app.models.user import User
 from app.schemas.device import DeviceRegister, DeviceResponse
-from app.api.deps import get_current_user, get_current_admin
+from app.api.deps import get_current_user, get_current_admin, get_optional_current_user
 
 router = APIRouter()
 
@@ -15,7 +15,7 @@ router = APIRouter()
 def register_device(
     device_in: DeviceRegister,
     db: Session = Depends(get_db),
-    current_user: Optional[User] = Depends(get_current_user)
+    current_user: Optional[User] = Depends(get_optional_current_user)
 ):
     """
     Pendaftaran atau pembaruan data perangkat mobile pengemudi/pelapor.
@@ -59,7 +59,7 @@ def list_devices(
 def get_device(
     device_id: str,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: Optional[User] = Depends(get_optional_current_user)
 ):
     device = db.query(Device).filter(Device.id == device_id).first()
     if not device:

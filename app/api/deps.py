@@ -40,6 +40,28 @@ def get_current_user(
     return user
 
 
+def get_optional_current_user(
+    auth: Optional[HTTPAuthorizationCredentials] = Depends(bearer_scheme),
+    db: Session = Depends(get_db)
+) -> Optional[User]:
+    """
+    Mengambil user jika token Bearer valid disertakan,
+    atau mengembalikan None jika tidak ada token (tidak melempar 401).
+    """
+    if not auth or not auth.credentials:
+        return None
+    
+    payload = decode_access_token(auth.credentials)
+    if not payload or "sub" not in payload:
+        return None
+    
+    try:
+        user_id = int(payload["sub"])
+        return db.query(User).filter(User.id == user_id).first()
+    except (ValueError, TypeError):
+        return None
+
+
 def get_current_admin(
     current_user: User = Depends(get_current_user)
 ) -> User:
