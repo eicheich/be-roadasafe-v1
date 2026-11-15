@@ -195,6 +195,7 @@ app.add_middleware(
 
 # Mount direktori uploads agar file foto bukti dapat diakses langsung oleh dashboard/klien
 ReportService.ensure_upload_dir()
+init_database_data()
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 # Include Router API v1
