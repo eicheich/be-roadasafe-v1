@@ -55,7 +55,8 @@ class ReportService:
                 )
                 public_url = client.storage.from_(settings.SUPABASE_BUCKET).get_public_url(filename)
                 return public_url
-            except Exception:
+            except Exception as e:
+                print(f"[Supabase Storage Warning] Gagal upload ke bucket '{settings.SUPABASE_BUCKET}', fallback ke lokal: {e}")
                 # Graceful fallback ke local file path
                 return relative_local_path
 

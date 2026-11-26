@@ -5,6 +5,7 @@ pydantic>=2.7.0
 pydantic-settings>=2.2.0
 email-validator>=2.1.0
 sqlalchemy>=2.0.0
+psycopg[binary]>=3.1.0
 psycopg2-binary>=2.9.0
 geoalchemy2>=0.14.0
 python-multipart>=0.0.9
