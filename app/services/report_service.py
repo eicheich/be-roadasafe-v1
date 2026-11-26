@@ -15,7 +15,7 @@ from app.models.device import Device
 from app.services.urgency_service import UrgencyService
 from app.services.deduplication_service import DeduplicationService
 from app.utils.geo import haversine_distance
-from app.utils.time import now_wib, to_wib
+from app.utils.time import now_wib, to_wib, to_wib_naive
 
 
 class ReportService:
@@ -146,7 +146,7 @@ class ReportService:
             nilai_L, nilai_K, nilai_P, nilai_T, config
         )
 
-        report_time = to_wib(waktu) if waktu else now_wib()
+        report_time = to_wib_naive(waktu) if waktu else now_wib()
         depth_est = estimasi_kedalaman_cm if estimasi_kedalaman_cm is not None else round(nilai_K * 0.12, 1)
 
         new_report = Report(
