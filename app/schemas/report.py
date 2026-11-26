@@ -1,6 +1,6 @@
-from datetime import datetime
 from typing import Optional, List
 from pydantic import BaseModel, Field, ConfigDict
+from app.utils.time import WIBDateTime
 
 
 class ReportParameterResponse(BaseModel):
@@ -18,7 +18,7 @@ class StatusLogResponse(BaseModel):
     status_baru: str
     diubah_oleh: str
     catatan: Optional[str] = None
-    waktu: datetime
+    waktu: WIBDateTime
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -35,7 +35,7 @@ class ReportResponse(BaseModel):
     akurasi_gps: float
     kecepatan: Optional[float] = None
     arah: Optional[float] = None
-    waktu: datetime
+    waktu: WIBDateTime
     gambar_path: str
     confidence: float
     skor: float
@@ -43,8 +43,8 @@ class ReportResponse(BaseModel):
     status: str
     jumlah_terlapor: int
     versi_model: str
-    created_at: datetime
-    updated_at: datetime
+    created_at: WIBDateTime
+    updated_at: WIBDateTime
     parameter: Optional[ReportParameterResponse] = None
     status_logs: List[StatusLogResponse] = []
     is_duplicate: Optional[bool] = False
@@ -70,7 +70,7 @@ class ReportMapItem(BaseModel):
     status: str
     color: str  # green (#22c55e), yellow (#eab308), red (#ef4444)
     jumlah_terlapor: int
-    waktu: datetime
+    waktu: WIBDateTime
 
 
 class ReportSummaryResponse(BaseModel):

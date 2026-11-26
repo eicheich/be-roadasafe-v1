@@ -1,6 +1,6 @@
-from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, Field, ConfigDict
+from app.utils.time import WIBDateTime
 
 
 class ConfigUpdate(BaseModel):
@@ -22,6 +22,6 @@ class ConfigResponse(BaseModel):
     ambang_low: float
     ambang_medium: float
     versi_model_aktif: str
-    updated_at: datetime
+    updated_at: WIBDateTime
 
     model_config = ConfigDict(from_attributes=True)

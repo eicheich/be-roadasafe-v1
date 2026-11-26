@@ -1,6 +1,6 @@
-from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, EmailStr, ConfigDict
+from app.utils.time import WIBDateTime
 
 
 class UserRegister(BaseModel):
@@ -20,7 +20,7 @@ class UserResponse(BaseModel):
     nama: str
     email: EmailStr
     peran: str
-    created_at: datetime
+    created_at: WIBDateTime
 
     model_config = ConfigDict(from_attributes=True)
 

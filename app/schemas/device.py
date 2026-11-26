@@ -1,6 +1,6 @@
-from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, ConfigDict
+from app.utils.time import WIBDateTime
 
 
 class DeviceRegister(BaseModel):
@@ -15,6 +15,6 @@ class DeviceResponse(BaseModel):
     model_perangkat: Optional[str] = None
     versi_app: Optional[str] = None
     is_active: bool
-    created_at: datetime
+    created_at: WIBDateTime
 
     model_config = ConfigDict(from_attributes=True)

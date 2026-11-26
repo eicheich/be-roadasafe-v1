@@ -1,7 +1,7 @@
-from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, Float, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from app.core.database import Base
+from app.utils.time import now_wib
 
 
 class Report(Base):
@@ -18,7 +18,7 @@ class Report(Base):
     akurasi_gps = Column(Float, nullable=False)
     kecepatan = Column(Float, nullable=True)
     arah = Column(Float, nullable=True)
-    waktu = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
+    waktu = Column(DateTime, nullable=False, default=now_wib)
     gambar_path = Column(String(255), nullable=False)
     confidence = Column(Float, nullable=False)
     skor = Column(Float, nullable=False)
@@ -26,8 +26,8 @@ class Report(Base):
     status = Column(String(30), default="Pending", nullable=False, index=True)  # Pending, Terverifikasi, Dalam Penanganan, Selesai, Ditolak
     jumlah_terlapor = Column(Integer, default=1, nullable=False)
     versi_model = Column(String(50), nullable=False)
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime, default=now_wib)
+    updated_at = Column(DateTime, default=now_wib, onupdate=now_wib)
 
     device = relationship("Device", back_populates="reports")
     parameter = relationship("ReportParameter", back_populates="report", uselist=False, cascade="all, delete-orphan")

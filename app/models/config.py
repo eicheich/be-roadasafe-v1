@@ -1,6 +1,6 @@
-from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, Float, String, DateTime
 from app.core.database import Base
+from app.utils.time import now_wib
 
 
 class SystemConfig(Base):
@@ -16,5 +16,5 @@ class SystemConfig(Base):
     ambang_medium = Column(Float, default=66.0, nullable=False)  # 34-66 -> Medium, >66 -> High
     
     versi_model_aktif = Column(String(50), default="yolov8n-pothole-v1.0", nullable=False)
-    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=now_wib, onupdate=now_wib)
 

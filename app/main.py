@@ -66,7 +66,7 @@ def init_database_data():
         # 4. Seed data sampel sesuai tampilan mockup UI-W01 & UI-W02 jika database masih kosong
         from app.models.report import Report, ReportParameter
         from app.models.status_log import StatusLog
-        from datetime import datetime, timezone
+        from app.utils.time import now_wib
 
         if db.query(Report).count() == 0:
             sample_data = [
@@ -107,7 +107,7 @@ def init_database_data():
                 }
             ]
 
-            now = datetime.now(timezone.utc)
+            now = now_wib()
             for item in sample_data:
                 rep = Report(
                     kode_laporan=item["kode"],

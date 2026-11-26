@@ -15,6 +15,7 @@ from app.models.device import Device
 from app.services.urgency_service import UrgencyService
 from app.services.deduplication_service import DeduplicationService
 from app.utils.geo import haversine_distance
+from app.utils.time import now_wib, to_wib
 
 
 class ReportService:
@@ -145,7 +146,7 @@ class ReportService:
             nilai_L, nilai_K, nilai_P, nilai_T, config
         )
 
-        report_time = waktu if waktu else datetime.now(timezone.utc)
+        report_time = to_wib(waktu) if waktu else now_wib()
         depth_est = estimasi_kedalaman_cm if estimasi_kedalaman_cm is not None else round(nilai_K * 0.12, 1)
 
         new_report = Report(
@@ -254,7 +255,7 @@ class ReportService:
             status_baru=status_baru,
             diubah_oleh=diubah_oleh,
             catatan=catatan,
-            waktu=datetime.now(timezone.utc)
+            waktu=now_wib()
         )
         db.add(log)
         db.commit()
@@ -416,7 +417,7 @@ class ReportService:
                 r.akurasi_gps,
                 r.kecepatan or "",
                 r.arah or "",
-                r.waktu.isoformat() if r.waktu else "",
+                to_wib(r.waktu).isoformat() if r.waktu else "",
                 r.confidence,
                 r.parameter.nilai_L if r.parameter else "",
                 r.parameter.nilai_K if r.parameter else "",

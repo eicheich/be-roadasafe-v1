@@ -26,6 +26,7 @@ from app.schemas.report import (
 from app.services.report_service import ReportService
 from app.services.urgency_service import UrgencyService
 from app.api.deps import get_current_user, get_current_admin
+from app.utils.time import now_wib
 
 router = APIRouter()
 
@@ -168,7 +169,7 @@ def export_reports_csv(
         limit=10000
     )
     csv_data = ReportService.export_csv(db, reports)
-    filename = f"laporan_jalan_berlubang_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+    filename = f"laporan_jalan_berlubang_{now_wib().strftime('%Y%m%d_%H%M%S')}.csv"
     return Response(
         content=csv_data,
         media_type="text/csv",

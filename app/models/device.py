@@ -1,7 +1,7 @@
-from datetime import datetime, timezone
 from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, Boolean
 from sqlalchemy.orm import relationship
 from app.core.database import Base
+from app.utils.time import now_wib
 
 
 class Device(Base):
@@ -12,7 +12,7 @@ class Device(Base):
     model_perangkat = Column(String(100), nullable=True)
     versi_app = Column(String(50), nullable=True)
     is_active = Column(Boolean, default=True)
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime, default=now_wib)
 
     user = relationship("User", back_populates="devices")
     reports = relationship("Report", back_populates="device")
